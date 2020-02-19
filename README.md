@@ -8,6 +8,7 @@ This codebase is the completed code for an article that covers how to build a we
 
 - Python 3+
 - MongoDB. Try [MongoDB Atlas](https://www.mongodb.com/atlas) for free. You can use code **ADO200** for a $200 credit.
+- Twilio
 
 ## Building the Application
 
