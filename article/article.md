@@ -5,7 +5,7 @@ If you would like to follow along with this tutorial, you can get the code from 
 
 ## What is Starlette
 
-[Starlette](https://www.starlette.io/) is a Python ASGI framework that shines. It is a farily new framework but has already garnered the attention of many Python developers for its high performance, support for [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API), [GraphQL](https://graphql.org/), impressive 100% test coverage, and zero hard dependencies.
+[Starlette](https://www.starlette.io/) is a Python ASGI framework that shines. It is a fairly new framework but has already garnered the attention of many Python developers for its high performance, support for [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API), [GraphQL](https://graphql.org/), impressive 100% test coverage, and zero hard dependencies.
 
 ![Starlette Logo](./images/starlette.png)
 
@@ -13,7 +13,7 @@ The framework is very light and easy to work with. The really impressive thing a
 
 ## Today's Project: MongoBnB
 
-Today we are going to be building a rental reservation system, similar to AirBnB, that we'll convinently name MongoBnB. Our application will display a list of featured properties, allow the user to sort by various parameters, view additional details of a selected property, and finally book and cancel reservations.
+Today we are going to be building a rental reservation system, similar to AirBnB, that we'll conveniently name MongoBnB. Our application will display a list of featured properties, allow the user to sort by various parameters, view additional details of a selected property, and finally book and cancel reservations.
 
 ![MongoBnB](./images/mongobnb.png)
 
@@ -35,7 +35,7 @@ Now that we have our dataset ready, let's get to writing some Python.
 
 ## Setting Up Our Starlette Application
 
-To get started with Starlette, we'll need to install it. Python's [pip pacakge manager](https://pip.pypa.io/en/stable/) can help with this. Open up your terminal and run the command `pip3 install starlette`. Starlette by itself is not a server so we'll need to install an ASGI server as well. There's many options like [uvicorn](http://www.uvicorn.org/), [daphne](https://github.com/django/daphne/), or [hypercorn](https://pgjones.gitlab.io/hypercorn/), and for our tutorial we'll use uvicorn. If you don't already have uvicorn installed, run the command `pip3 install uvicorn` and we'll be off to the races.
+To get started with Starlette, we'll need to install it. Python's [pip package manager](https://pip.pypa.io/en/stable/) can help with this. Open up your terminal and run the command `pip3 install starlette`. Starlette by itself is not a server so we'll need to install an ASGI server as well. There's many options like [uvicorn](http://www.uvicorn.org/), [daphne](https://github.com/django/daphne/), or [hypercorn](https://pgjones.gitlab.io/hypercorn/), and for our tutorial we'll use uvicorn. If you don't already have uvicorn installed, run the command `pip3 install uvicorn` and we'll be off to the races.
 
 While we're installing dependencies, let's install one final one that we'll need for our application and that is [Jinja](https://palletsprojects.com/p/jinja/). Jinja is a templating engine for Python that we'll use to render our application to the browser. Run `pip3 install jinja2` to install it. This is an optional dependency for the Starlette framework, if you're just planning on using Starlette to serve an API with JSON responses for example, then you could omit this step, but for our tutorial, we'll make use of it.
 
@@ -58,13 +58,13 @@ app = Starlette(debug=True, routes=[
 
 The code above imports the Starlette framework, or various toolkit components if you will, such as routing and responses. Then on line 8 we create an instance of our Starlette application. For our app we'll want the debugging to be on so we have detailed error reports, and for the second parameter we pass in our routes. For this test app, we're only going to have one route and we'll call it `homepage`. Finally, we implement this homepage route and all it does is display the message "Hello from Starlette" to the users browser.
 
-Let's make sure our app works. Since we installed uvicorn as our ASGI server, we'll use it to start up our application. In the terminal exceute the command `uvicorn app:app` in the directory where your `app.py` file resides. This will start up the default server on `localhost:8000`. You will get a message in the terminal saying that the Uvicorn server is running if everything went ok, if you have issues at this point, ensure that all of the above pip packages are installed. Check out the [uvicorn docs page](https://www.uvicorn.org/) for troubleshooting.
+Let's make sure our app works. Since we installed uvicorn as our ASGI server, we'll use it to start up our application. In the terminal execute the command `uvicorn app:app` in the directory where your `app.py` file resides. This will start up the default server on `localhost:8000`. You will get a message in the terminal saying that the Uvicorn server is running if everything went ok, if you have issues at this point, ensure that all of the above pip packages are installed. Check out the [uvicorn docs page](https://www.uvicorn.org/) for troubleshooting.
 
 If all went well and the server is up and running, navigate to `localhost:8000` in your browser and you'll see the message "Hello from Starlette." Congrats! You just built your first Starlette application. Now let's build something real.
 
 ## Architecting MongoBnB
 
-We have a basic Starlette app up and running, now let's expand on it for our tutorial application. While we certinly could add all of our code in this single `app.py` file, that wouldn't be an ideal developer experience. So let's define our requirements and break up our application into multiple files. 
+We have a basic Starlette app up and running, now let's expand on it for our tutorial application. While we certainly could add all of our code in this single `app.py` file, that wouldn't be an ideal developer experience. So let's define our requirements and break up our application into multiple files. 
 
 We know we'll have multiple routes, so let's create a `routes.py` file to house them. Our routes will communicate with our database and rather than creating a connection to our cluster in each route, we'll create a connection pool and pass it down as middleware, so let's also create a `middleware.py` file. Next, as we saw in our dataset, we won't work with the entire document, so let's also create a `models.py` file that will hold our models. Finally, it looks like we're building an [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) type application where we have models, our routes are our controllers, so let's add a `templates` directory, that will hold our views.
 
@@ -129,7 +129,7 @@ We are replacing our default routing with the new routes we created in the `rout
 
 Name a more iconic duo than Python and [SQLAlchemy](https://www.sqlalchemy.org/). Fortunately, Starlette is not opinionated about which database technology you should work with and doesn't prefer SQL over NoSQL. For our tutorial, since we have our dataset in MongoDB Atlas, we'll use Mongo and the excellent [pymongo package](https://api.mongodb.com/python/current/). 
 
-If you don't already have pymongo installed, do so now by running `pip3 install pymongo`. Once pymongo is installed open up the `middleware.py` file we created earlier. Here is where we'll instantiate our connection to MongoDB so that we can interact with the dataset and populate our application with real data.
+If you don't already have pymongo installed, do so now by running `pip3 install pymongo`. Once pymongo is installed, open up the `middleware.py` file we created earlier. Here is where we'll instantiate our connection to MongoDB so that we can interact with the dataset and populate our application with real data.
 
 ```py
 from starlette.middleware import Middleware
@@ -167,7 +167,7 @@ app = Starlette(debug=True, routes=[
 ], middleware=middleware)
 ```
 
-With the middleware in place, we are ready to start implementing our controller functions. This middleware will now execute for all of our functions. We could get granular and pass it only for specific routes, but since all of our routes will be talking to the database, it makes sense to apply this middleware globaly. We will be able to access our database in each route via `request.state.db`.
+With the middleware in place, we are ready to start implementing our controller functions. This middleware will now execute for all of our functions. We could get granular and pass it only for specific routes, but since all of our routes will be talking to the database, it makes sense to apply this middleware globally. We will be able to access our database in each route via `request.state.db`.
 
 ## Defining our Data Model
 
@@ -293,7 +293,7 @@ In the `index.html` page add the following code underneath the `<h1 class="text-
 </div>
 ```
 
-What this will do is pass a query parameter called `filter` with a pre-defined filter. The filters will be for properties under $100, highly rated properties, and a suprrise that you can implement yourself. Let's open up our `routes.py` filter and edit the `homepage` route to support these filters.
+What this will do is pass a query parameter called `filter` with a pre-defined filter. The filters will be for properties under $100, highly rated properties, and a surprise that you can implement yourself. Let's open up our `routes.py` filter and edit the `homepage` route to support these filters.
 
 ```py
 async def homepage(request):
@@ -512,7 +512,7 @@ Save the function. By default this function will never be called. We have to cre
 
 * **Name** - name the function whatever you want
 * **Cluster Name** - this will default to the cluster you selected when creating the Stitch application
-* **Datbase Name** - be sure to select `sample_airbnb`
+* **Database Name** - be sure to select `sample_airbnb`
 * **Collection Name** - be sure to select `bookings`
 * **Operation Type** - be sure to select only **Insert**
 * **Full Document** - set to **On**
@@ -524,13 +524,13 @@ Once these settings are in place hit the **Save** button.
 
 Now our serverless function should be ready to go. Hit the **Review & Deploy Changes** button in the top blue bar. Once the changes are deployed, go back to your Starlette application on `localhost:8000`. 
 
-Select a booking that pleases you and click on the **Book** button. Immedetly you will see the confirmation page we built earlier, but in a few seconds, you will also receive a text message telling you that the booking has been created.
+Select a booking that pleases you and click on the **Book** button. Immediately you will see the confirmation page we built earlier, but in a few seconds, you will also receive a text message telling you that the booking has been created.
 
 ![Stitch Twilio SMS](./images/confirmation-sms.png)
 
 ## Handling Incoming Twilio SMS with MongoDB Stitch
 
-Our final piece of functionality in MongoDB Stitch will be to allow the user to send us the confirmation id in the event they want to cancel their booking. To do this, let's naviagte back to **3rd Party Services** and click our Twilio service we created earlier. From here, we'll click on the **Add Incoming Webhook** button.
+Our final piece of functionality in MongoDB Stitch will be to allow the user to send us the confirmation id in the event they want to cancel their booking. To do this, let's navigate back to **3rd Party Services** and click our Twilio service we created earlier. From here, we'll click on the **Add Incoming Webhook** button.
 
 ![Stitch Webhook](./images/twilio-webhook.png)
 
@@ -556,12 +556,12 @@ exports = function(payload) {
 
 This function will take the body of the SMS message, which for all intents and purposes we'll assume to just be the reservation `_id`, and if it is, we'll go into our `bookings` collection and delete that record. Once that is done, we'll respond back to the user telling them that their reservation has been cancelled.
 
-![MongoBnB Booking Cancellation](./images/cancel-sms.png)
+![Twilio Webhook Setup](./images/twilio.png)
 
 This function won't fire automatically though. To get it to work, we'll need to tell Twilio about our function. Log into your Twilio dashboard and navigate to the **Phone Numbers** service. Select the phone number you wish to use and scroll the the bottom of the page to find the **Messaging** settings. In the **A Message Comes In** setting, from the drop down select **Webhook** and for the value paste in your MongoDB Stitch Webhook URL we saved from earlier. That's it. Now it should all work!
 
-![Twilio Webhook Setup](./images/twilio.png)
+![MongoBnB Booking Cancellation](./images/cancel-sms.png)
 
 ## Putting It All Together
 
-In today's tutorial we learned about Starlette, an ASGI framework for building performant Python applications. We connected our Starlette application to a MongoDB database hosted by MongoDB Atlas. Finally, we enhanced our application using MongoDB Stitch, a serverless platform made for MongoDB, by adding Twilio SMS functionality. I hope you found this tutorial helpful. If you would like to clone the completed code, you can get it from [GitHub]. Be sure to[sign up for MongoDB Atlas](https://www.mongodb.com/download-center) (and use code **ADO200** to get $200 in credits) as it will give you access to the dataset for the tutorial. Happy coding!
+In today's tutorial we learned about Starlette, an ASGI framework for building performant Python applications. We connected our Starlette application to a MongoDB database hosted by MongoDB Atlas. Finally, we enhanced our application using MongoDB Stitch, a serverless platform made for MongoDB, by adding Twilio SMS functionality. I hope you found this tutorial helpful. If you would like to clone the completed code, you can get it from [GitHub]. Be sure to [sign up for MongoDB Atlas](https://www.mongodb.com/download-center) (and use code **ADO200** to get $200 in credits) as it will give you access to the dataset for the tutorial. Happy coding!
