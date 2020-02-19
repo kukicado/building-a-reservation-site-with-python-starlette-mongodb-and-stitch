@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>MongoBnB | Property - {{ request.path_params['id']}}</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        img {
+            width: 500px !important;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto">
+        <div class="flex">
+            <div class="row w-full text-center my-4">
+                <h1 class="text-4xl font-bold">MongoBnB</h1>
+                <a href="/">Back</a>
+            </div>
+        </div>
+        <div class="flex flex-row flex-wrap">
+    
+    <div class="flex-auto w-1/4 rounded overflow-hidden shadow-lg m-2">
+        <img class="w-full" src="{{ property.image }}">
+        <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2">{{ property.name }} (Up to {{ property.guests }} guests)</div>
+            <p>{{ property.address }}</p>
+            <p class="text-gray-700 text-base">
+                {{ property.summary }}
+            </p>
+
+        </div>
+        <div class="px-6 py-4">
+            {% for amenity in property.amenities %}
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 m-1">{{ amenity }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="text-center py-2 my-2 font-bold">
+            <span class="text-green-500">${{ property.price }}</span>/night (+<span class="text-green-500">${{ property.cleaning_fee }} </span>Cleaning Fee)
+        </div>
+
+        <div class="text-center py-2 my-2">
+            <a href="/confirmation/{{property.id}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Book</a>
+        </div>
+    </div>
+        </div>
+    </div>
+</body>
+</html>

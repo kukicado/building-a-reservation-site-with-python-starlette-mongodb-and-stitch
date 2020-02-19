@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>MongoBnB | Home</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container mx-auto">
+        <div class="flex">
+            <div class="row w-full text-center my-4">
+                <h1 class="text-4xl font-bold mb-5">MongoBnB</h1>
+
+                <div class="inline-flex">
+                    <a href="/" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+                      Featured
+                    </a>
+                    <a href="/?filter=under-100" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                      Under 100
+                    </a>
+                    <a href="/?filter=highly-rated" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                        Highly Rated and Cheap
+                    </a>
+                    <a href="/?filter=surprise" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                        Surprise Me
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row flex-wrap">
+    {% for property in response %}
+    <div class="flex-auto w-1/4 rounded overflow-hidden shadow-lg m-2">
+        <img class="w-full" src="{{ property.image }}">
+        <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2">{{ property.name }} (Up to {{ property.guests }} guests)</div>
+            <p>{{ property.address }}</p>
+            <p class="text-gray-700 text-base">
+                {{ property.summary }}
+            </p>
+
+        </div>
+
+        <div class="text-center py-2 my-2 font-bold">
+            <span class="text-green-500">${{ property.price }}</span>/night (+<span class="text-green-500">${{ property.cleaning_fee }} </span>Cleaning Fee)
+        </div>
+
+        <div class="text-center py-2 my-2">
+            <a href="/listing/{{property.id}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Details</a>
+            <a href="/confirmation/{{property.id}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Book</a>
+        </div>
+    </div>
+    {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
