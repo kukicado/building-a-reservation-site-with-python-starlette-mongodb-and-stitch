@@ -520,7 +520,7 @@ Save the function. By default, this function will never be called. We have to cr
 
 Once these settings are in place hit the **Save** button.
 
-![Stitch Trigger](./images/stitch-trigger)
+![Stitch Trigger](./images/stitch-trigger.png)
 
 Now our serverless function should be ready to go. Hit the **Review & Deploy Changes** button in the top blue bar. Once the changes are deployed, go back to your Starlette application on `localhost:8000`. 
 
